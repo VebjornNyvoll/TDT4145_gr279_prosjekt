@@ -1,4 +1,5 @@
 import sqlite3
+from dateutil import parser
 
 con = sqlite3.connect('database_v0.db')
 c = con.cursor()
@@ -18,20 +19,20 @@ def brukerhistorie_d():
     ende_stasjon = c.fetchone()
 
     #Join togrute, startstasjon and endestasjon to get all the togruter that goes from start_stasjon to ende_stasjon
-    execute_third = "SELECT * FROM StartStasjon JOIN Endestasjon ON StartStasjon.togrute_ID = Endestasjon.togrute_ID WHERE StartStasjon.stasjon_ID = " + str(start_stasjon[0]) + " AND Endestasjon.stasjon_ID = " + str(ende_stasjon[0]) + ";"
+    execute_third = "SELECT StartStasjon.togrute_ID FROM StartStasjon JOIN Endestasjon ON StartStasjon.togrute_ID = Endestasjon.togrute_ID WHERE StartStasjon.stasjon_ID = " + str(start_stasjon[0]) + " AND Endestasjon.stasjon_ID = " + str(ende_stasjon[0]) + ";"
     c.execute(execute_third)
-    togruter = c.fetchall()
+    togrute_tupler = c.fetchall()
+    togrute_IDer = []
+    for i in range(len(togrute_tupler)):
+        togrute_IDer.append(togrute_tupler[i][0])
+    print(togrute_IDer)
 
-    #Teknisk sett ikke del av brukerhistorie_d men greit å vite hva som er infoen jeg jobber med
-    print("\nDisse rutene går mellom valgte stasjoner: ")
-    for i in range(len(togruter)):
-        print("Avgang " + start_stasjon_navn + " " + str(togruter[i][2]) + " Ankomst " + ende_stasjon_navn + " " + str(togruter[i][5]))
-
-    # date = input("Hvilken dato vil du reise? (YYYY-MM-DD) \n")
-    # date2 = date[0:8] + str(int(date[8:10]) + 1)
+    date = parser.parse(input("Hvilken dato vil du reise? (YYYY-MM-DD) \n")).strftime('%Y%m%d')
+    print(date)
+    
    
 
-    # #Get all the togruteforekomster that goes from start_stasjon to ende_stasjon in the same date and the date after
+    #Get all the togruteforekomster that goes from start_stasjon to ende_stasjon in the same date and the date after
     # execute_fourth = "SELECT togruteforekomst_nr FROM TogRuteforekomst WHERE togrute_nr IN " + str(togruter) + " AND dato BETWEEN " + "'" + date + "'" + " AND " + "'" + date2 + "'" + " ORDER BY time;"
     # c.execute(execute_fourth)
     # togruteforekomster = c.fetchall()
