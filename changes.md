@@ -1,4 +1,5 @@
 - Endret moh fra INT til numeric for å få med desimaltall
+
 - Added ON DELETE CASCADE to vognoppsett reference in togrute
 
 - Endret forekomst_id til Togrute.rute_id i startstasjon, mellomstasjon og endestasjon
@@ -15,4 +16,5 @@
 
 - Removed not null clause in kunde_nr in sovekupe
 
+- Added autoincrement to kunde_nr
 
