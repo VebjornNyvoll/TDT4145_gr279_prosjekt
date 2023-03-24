@@ -11,6 +11,8 @@
 
 - Added vognoppsett_nr to sovevogn, sittevogn, kupe, setebillett, sovebillett (A6)
 
+- Changed foreign key references to composite references in weak relations
+
 TODO:
 - FIKSE SVAKE RELASJONER OG ID-ene deres!(begynt på se A6)
 

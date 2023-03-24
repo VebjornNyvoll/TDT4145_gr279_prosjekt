@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/Vebjørn/Documents/NTNU/TDT4145/Prosjekt/TDT4145_gr279_prosjekt/database_v0.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="browser structure pragmas query" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="125"/><column_width id="3" width="3883"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,13:mainBanestrekning"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Banestrekning" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="123"/><column index="2" value="144"/><column index="3" value="150"/><column index="4" value="139"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Seng" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="80"/><column index="2" value="81"/><column index="3" value="85"/><column index="4" value="148"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Sete" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="75"/><column index="2" value="85"/><column index="3" value="148"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Sittevogn" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="85"/><column index="2" value="96"/><column index="3" value="114"/><column index="4" value="126"/><column index="5" value="148"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="SluttDelStrekning" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="149"/><column index="2" value="105"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Vogn" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="85"/><column index="2" value="148"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">CREATE TABLE &quot;Setebillett&quot; (
+	&quot;billett_ID&quot;	INT,
+	&quot;sete_nr&quot;	INT NOT NULL,
+	&quot;kupe_nr&quot;	INT NOT NULL,
+	&quot;vogn_ID&quot;	INT NOT NULL,
+	&quot;ordre_nr&quot;	INT NOT NULL,
+	&quot;vognoppsett_nr&quot;	INT,
+	FOREIGN KEY(&quot;sete_nr&quot;, &quot;vogn_ID&quot;, &quot;vognoppsett_nr&quot;) REFERENCES &quot;Sete&quot;(&quot;sete_nr&quot;, &quot;vogn_ID&quot;, &quot;vognoppsett_nr&quot;) ON UPDATE CASCADE,
+	FOREIGN KEY(&quot;ordre_nr&quot;) REFERENCES &quot;Kundeordre&quot;(&quot;ordre_nr&quot;) ON UPDATE CASCADE ON DELETE CASCADE,
+	PRIMARY KEY(&quot;billett_ID&quot;)
+);
+
+CREATE TABLE &quot;SengBillett&quot; (
+	&quot;billett_ID&quot;	INT,
+	&quot;seng_nr&quot;	INT NOT NULL,
+	&quot;kupe_nr&quot;	INT NOT NULL,
+	&quot;vogn_ID&quot;	INT NOT NULL,
+	&quot;ordre_nr&quot;	INT NOT NULL,
+	&quot;vognoppsett_nr&quot;	INT NOT NULL,
+	FOREIGN KEY(&quot;seng_nr&quot;, &quot;kupe_nr&quot;, &quot;vogn_ID&quot;, &quot;vognoppsett_nr&quot;) REFERENCES &quot;Seng&quot;(&quot;seng_nr&quot;, &quot;kupe_nr&quot;, &quot;vogn_ID&quot;, &quot;vognoppsett_nr&quot;) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY(&quot;ordre_nr&quot;) REFERENCES &quot;Kundeordre&quot;(&quot;ordre_nr&quot;) ON UPDATE CASCADE ON DELETE CASCADE,
+	PRIMARY KEY(&quot;billett_ID&quot;)
+);</sql><current_tab id="0"/></tab_sql></sqlb_project>
