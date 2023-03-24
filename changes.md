@@ -13,8 +13,6 @@
 
 - Changed foreign key references to composite references in weak relations
 
-- DELETED kunde_nr IN SOVEKUPE!! (must add kunde_nr again here or elsewhere)
+- Removed not null clause in kunde_nr in sovekupe
 
-TODO:
-- FIKSE SVAKE RELASJONER OG ID-ene deres!(begynt på se A6)
 
