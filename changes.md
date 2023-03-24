@@ -18,3 +18,5 @@
 
 - Added autoincrement to kunde_nr
 
+# TODO:
+- Unique clause på email i kunde
