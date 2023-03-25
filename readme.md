@@ -1,0 +1,2 @@
+Brukerhistorie d:
+- Bruker trenger ikke taste inn klokkeslett, da oppgava sier at man uansett skal returnere alle ruter den samme dagen og den neste, noe som gjør at klokkeslettet bruker taster inn ikke har påvirkning.
