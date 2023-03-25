@@ -2,20 +2,18 @@ CREATE TABLE "Sete" (
 	"sete_nr"	INT,
 	"vogn_ID"	INT NOT NULL,
 	"vognoppsett_nr"	INT NOT NULL,
-	PRIMARY KEY("sete_nr"),
+	PRIMARY KEY("sete_nr", "vogn_ID", "vognoppsett_nr"),
 	FOREIGN KEY("vogn_ID", "vognoppsett_nr") REFERENCES "Sittevogn"("vogn_ID", "vognoppsett_nr") ON UPDATE CASCADE ON DELETE CASCADE,
 );
 
 
 CREATE TABLE "Sittevogn" (
 	"vogn_ID"	INT,
-	"seteRader"	INT,
-	"seterPerRad"	INT,
-	"operatoer_ID"	INT NOT NULL,
+	"seteRader"	INT NOT NULL,
+	"seterPerRad"	INT NOT NULL,
 	"vognoppsett_nr"	INT,
 	PRIMARY KEY("vogn_ID","vognoppsett_nr"),
-	FOREIGN KEY("vogn_ID", "vognoppsett_nr") REFERENCES "Vogn"("vogn_ID", "vognoppsett_nr") ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY("operatoer_ID") REFERENCES "Operatoer"("operatoer_ID") ON UPDATE CASCADE ON DELETE CASCADE
+	FOREIGN KEY("vogn_ID", "vognoppsett_nr") REFERENCES "Vogn"("vogn_ID", "vognoppsett_nr") ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE "Seng" (
@@ -23,7 +21,7 @@ CREATE TABLE "Seng" (
 	"kupe_nr"	INT NOT NULL,
 	"vogn_ID"	INT NOT NULL,
 	"vognoppsett_nr"	INT NOT NULL,
-	PRIMARY KEY("seng_nr"),
+	PRIMARY KEY("seng_nr", "vogn_ID", "vognoppsett_nr"),
 	FOREIGN KEY("kupe_nr", "vogn_ID", "vognoppsett_nr") REFERENCES "Sovekupe"("kupe_nr", "vogn_ID", "vognoppsett_nr") ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -40,9 +38,7 @@ CREATE TABLE "Sovekupe" (
 CREATE TABLE "Sovevogn" (
 	"vogn_ID"	INT,
 	"sengerPerKupe"	INT,
-	"operatoer_ID"	INT NOT NULL,
 	"vognoppsett_nr"	INT,
-	FOREIGN KEY("operatoer_ID") REFERENCES "Operatoer"("operatoer_ID") ON UPDATE CASCADE,
 	FOREIGN KEY("vogn_ID", "vognoppsett_nr") REFERENCES "Vogn"("vogn_ID", "vognoppsett_nr") ON UPDATE CASCADE ON DELETE CASCADE,
 	PRIMARY KEY("vogn_ID","vognoppsett_nr")
 );
@@ -69,4 +65,12 @@ CREATE TABLE "SengBillett" (
 	FOREIGN KEY("seng_nr", "kupe_nr", "vogn_ID", "vognoppsett_nr") REFERENCES "Seng"("seng_nr", "kupe_nr", "vogn_ID", "vognoppsett_nr") ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY("ordre_nr") REFERENCES "Kundeordre"("ordre_nr") ON UPDATE CASCADE ON DELETE CASCADE,
 	PRIMARY KEY("billett_ID")
+);
+
+CREATE TABLE "Vogn" (
+	"vogn_ID"	INTEGER,
+	"vognoppsett_nr"	INTEGER,
+    "operatoer_ID"	INT,
+    FOREIGN KEY("operatoer_ID") REFERENCES "Operatoer"("operatoer_ID") ON UPDATE CASCADE,
+	PRIMARY KEY("vogn_ID","vognoppsett_nr")
 );

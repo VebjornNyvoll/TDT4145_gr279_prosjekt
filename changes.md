@@ -18,5 +18,7 @@
 
 - Added autoincrement to kunde_nr
 
+# Til readme:
+- Pip install dateutil
 # TODO:
 - Unique clause på email i kunde
