@@ -122,8 +122,14 @@ def brukerhistorie_g():
     for i in range(len(togruteforekomster)):
         c.execute("SELECT ordre_nr FROM Kundeordre WHERE forekomst_ID = ?", (togruteforekomster[i][0],))
         ordre_nr = c.fetchone()
-        c.execute("SELECT * FROM Setebillett WHERE startstasjon = ? AND endestasjon = ? AND vognoppsett_nr = ? AND vogn_ID = ?", (StartStasjon, EndStasjon, vognoppsett_nr[0], vogn_ID[0][0]))
-        opptattSeteBillett = c.fetchall()
+        c.execute("SELECT sete_nr FROM Setebillett WHERE startstasjon = ? AND endestasjon = ? AND vognoppsett_nr = ? AND vogn_ID = ?", (StartStasjon, EndStasjon, vognoppsett_nr[0], vogn_ID[0][0]))
+        opptattSete = c.fetchall()
+        # remove opptatt sete from sete_nr
+        # for j in range(len(sete_nr)):
+        #     sete_nr.remove(opptattSete[j])
+        #     print("Forekomst: " + str(togruteforekomster[i][0]) + " " + str(togruteforekomster[i][1]))
+
+
 
     # forekomst_ID = input("Oppgi forekomst id \n")
     # vogn_ID = input("Oppgi vogn id \n")
