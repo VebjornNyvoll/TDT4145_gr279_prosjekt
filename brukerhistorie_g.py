@@ -79,14 +79,45 @@ def brukerhistorie_g():
     if(len(togruter) == 0):
         print("Det finnes ingen togruter mellom " + getStasjonNavn(StartStasjon) + " og " + getStasjonNavn(EndStasjon) + "!")
         return
+    
+    # Get all the togruteforekomster that goes from start_stasjon to ende_stasjon in the same date and the date after
+    c.execute("SELECT * FROM Togruteforekomst WHERE Togruteforekomst.rute_ID IN " + str(tuple(togrute_IDer)) + "")
+    togruteforekomster = c.fetchall()
+
+    # Check if there exists togruteforekomster between the start_stasjon and ende_stasjon
+    if len(togruteforekomster) == 0:
+        print("Det finnes ingen togruter mellom " + getStasjonNavn(StartStasjon) + " og " + getStasjonNavn(EndStasjon) + " på valgt dato eller dagen etter!")
+        return
 
     # Print all the togruteforekomster that match the query in a nice format
     print("\nTakk for din hendvendelse!")
     print("Dette er alle togrutene som går mellom " + getStasjonNavn(StartStasjon) + " og " + getStasjonNavn(EndStasjon) + ":")
     for i in range(len(togruter)):
-        print("_"*50)
-        print("Rute: " + str(togruter[i][0]))
-        print("Avgang " + str(togruter[i][1]) + " " + str(togruter[i][3]))
-        print("Ankomst " + str(togruter[i][2]) + " " + str(togruter[i][4]))
+        for j in range(len(togruteforekomster)):
+            if(togruter[i][0] == togruteforekomster[j][2]):
+                togruter[i] = togruter[i] + togruteforekomster[j][1:2]
+            print("_"*50)
+            print("Rute: " + str(togruter[i][0]))
+            print("Avgang " + str(togruter[i][1]) + " " + str(togruter[i][3]))
+            print("Ankomst " + str(togruter[i][2]) + " " + str(togruter[i][4]))
+
+    # ------husk input validering------
+    togrute_ID = input("Oppgi rute id \n")
+    
+    # for hver togruteforekomst
+    # bruke rute_ID til å finne vognopsett_nr med Togrute
+    c.execute("SELECT vognopsett_nr FROM Togrute WHERE rute_ID = ?", (togrute_ID,))
+    vognoppsett_nr = c.fetchone()
+    # bruke vognopsett_nr til å finnne alle vogn_ID med Vogn
+    c.execute("SELECT vogn_ID FROM Vogn WHERE vognoppsett_nr = ?", (vognoppsett_nr[0],))
+    vogn_ID = c.fetchall()
+    # bruke vognopsett_nr + vogn_ID til å finne alle sete_nr med sete
+    for i in range(len(vogn_ID)):
+        c.execute("SELECT sete_nr FROM Sete WHERE vogn_ID = ?", (vogn_ID[i][0],))
+        sete_nr = c.fetchall()
+        print(sete_nr)
+
+
+    
 brukerhistorie_g()
 con.close()
