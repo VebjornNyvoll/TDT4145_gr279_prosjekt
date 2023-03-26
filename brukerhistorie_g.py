@@ -104,7 +104,7 @@ def brukerhistorie_g():
     # ------husk input validering------
     togrute_ID = input("Oppgi rute id \n")
     
-    # for hver togruteforekomst
+    # finne alle seter som er i en togrute
     # bruke rute_ID til å finne vognopsett_nr med Togrute
     c.execute("SELECT vognopsett_nr FROM Togrute WHERE rute_ID = ?", (togrute_ID,))
     vognoppsett_nr = c.fetchone()
@@ -117,6 +117,9 @@ def brukerhistorie_g():
         sete_nr = c.fetchall()
         print(sete_nr)
 
+    #se om setene er ledige
+    #alle biletter mellom startstasjon og endestasjon med vognopsett_nr vogn_ID
+    c.execute()
 
     
 brukerhistorie_g()
