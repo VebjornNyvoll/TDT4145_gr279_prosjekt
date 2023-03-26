@@ -104,7 +104,7 @@ def brukerhistorie_g():
     # ------husk input validering------
     togrute_ID = input("Oppgi rute id \n")
     
-    # finne alle seter som er i en togrute
+    # finne alle seter som er i en gitt togrute
     # bruke rute_ID til å finne vognopsett_nr med Togrute
     c.execute("SELECT vognopsett_nr FROM Togrute WHERE rute_ID = ?", (togrute_ID,))
     vognoppsett_nr = c.fetchone()
@@ -113,13 +113,18 @@ def brukerhistorie_g():
     vogn_ID = c.fetchall()
     # bruke vognopsett_nr + vogn_ID til å finne alle sete_nr med sete
     for i in range(len(vogn_ID)):
-        c.execute("SELECT sete_nr FROM Sete WHERE vogn_ID = ?", (vogn_ID[i][0],))
+        c.execute("SELECT sete_nr FROM Sete WHERE vogn_ID = ? AND vognoppsett_nr = ?", (vogn_ID[i][0], vognoppsett_nr[0],))
         sete_nr = c.fetchall()
-        print(sete_nr)
+        for j in range(len(sete_nr)):
+            print("Vogn:" + str(vogn_ID[i][0]) + "Sete:" + str(sete_nr[j][0]))
+        
+    # finne alle seter som er opptatt i hver forekomst
+    for i in range(len(togruteforekomster)):
+        c.execute("SELECT ordre_nr FROM Kundeordre WHERE forekomst_ID = ?", (togruteforekomster[i][0],))
+        ordre_nr = c.fetchone()
 
-    #se om setene er ledige
-    #alle biletter mellom startstasjon og endestasjon med vognopsett_nr vogn_ID
-    c.execute()
+        c.execute("SELECT * FROM Setebillett WHERE startstasjon = ? AND endestasjon = ? AND vognoppsett_nr = ? AND vogn_ID = ?", (StartStasjon, EndStasjon, vognoppsett_nr[0], vogn_ID[0][0]))
+        opptattSeteBillett = c.fetchall()
 
     
 brukerhistorie_g()
