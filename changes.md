@@ -1,6 +1,6 @@
 - Endret moh fra INT til numeric for å få med desimaltall
 
-- Added ON DELETE CASCADE to vognoppsett reference in togrute
+- Added ON DELETE CASCADE to several tables
 
 - Endret forekomst_id til Togrute.rute_id i startstasjon, mellomstasjon og endestasjon
 
@@ -10,7 +10,7 @@
 
 - Endret ukedag til å være int mellom 0 og 6
 
-- Added vognoppsett_nr to sovevogn, sittevogn, kupe, setebillett, sovebillett (A6)
+- Added vognoppsett_nr to sovevogn, sittevogn, kupe, setebillett, sovebillett
 
 - Changed foreign key references to composite references in weak relations
 
@@ -18,7 +18,6 @@
 
 - Added autoincrement to kunde_nr
 
-# Til readme:
-- Pip install dateutil
+- Added unique clause to kunde.epost and Stasjon.stasjon_navn (as well as collate nocase)
 # TODO:
-- Unique clause på email i kunde
+- Må lage et python script som lager en database via db_creator.sql
