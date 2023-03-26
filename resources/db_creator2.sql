@@ -26,8 +26,8 @@ CREATE TABLE IF NOT EXISTS "Togruteforekomst" (
 CREATE TABLE IF NOT EXISTS "GaarAvStasjon" (
 	"billett_ID"	INT,
 	"stasjon_ID"	INT NOT NULL,
-	FOREIGN KEY("stasjon_ID") REFERENCES "Stasjon"("stasjon_ID") ON UPDATE CASCADE,
 	FOREIGN KEY("billett_ID") REFERENCES "Setebillett"("billett_ID") ON UPDATE CASCADE,
+	FOREIGN KEY("stasjon_ID") REFERENCES "Stasjon"("stasjon_ID") ON UPDATE CASCADE,
 	PRIMARY KEY("billett_ID")
 );
 CREATE TABLE IF NOT EXISTS "GaarPaaStasjon" (
@@ -63,16 +63,16 @@ CREATE TABLE IF NOT EXISTS "Togrute" (
 	"hovedretning"	BOOLEAN NOT NULL,
 	"operatoer_ID"	INT NOT NULL,
 	"vognopsett_nr"	INT NOT NULL,
-	FOREIGN KEY("operatoer_ID") REFERENCES "Operatoer"("operatoer_ID") ON UPDATE CASCADE,
 	FOREIGN KEY("vognopsett_nr") REFERENCES "VognOppsett"("vognoppsett_nr") ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY("operatoer_ID") REFERENCES "Operatoer"("operatoer_ID") ON UPDATE CASCADE,
 	PRIMARY KEY("rute_ID")
 );
 CREATE TABLE IF NOT EXISTS "StartStasjon" (
 	"togrute_ID"	INT,
 	"stasjon_ID"	INT NOT NULL,
 	"avgangstid"	TIME,
-	FOREIGN KEY("stasjon_ID") REFERENCES "Stasjon"("stasjon_ID") ON UPDATE CASCADE,
 	FOREIGN KEY("togrute_ID") REFERENCES "Togruteforekomst"("forekomst_ID") ON UPDATE CASCADE,
+	FOREIGN KEY("stasjon_ID") REFERENCES "Stasjon"("stasjon_ID") ON UPDATE CASCADE,
 	PRIMARY KEY("togrute_ID")
 );
 CREATE TABLE IF NOT EXISTS "Endestasjon" (
@@ -88,8 +88,8 @@ CREATE TABLE IF NOT EXISTS "MellomStasjon" (
 	"stasjon_ID"	INT,
 	"avgangstid"	TIME,
 	"ankomsttid"	TIME,
-	FOREIGN KEY("stasjon_ID") REFERENCES "Stasjon"("stasjon_ID") ON UPDATE CASCADE,
 	FOREIGN KEY("togrute_ID") REFERENCES "Togruteforekomst"("forekomst_ID") ON UPDATE CASCADE,
+	FOREIGN KEY("stasjon_ID") REFERENCES "Stasjon"("stasjon_ID") ON UPDATE CASCADE,
 	PRIMARY KEY("togrute_ID","stasjon_ID")
 );
 CREATE TABLE IF NOT EXISTS "Ukedag" (
@@ -186,6 +186,7 @@ CREATE TABLE IF NOT EXISTS "KupeKundeForekomst" (
 	"kupekunde_ID"	INTEGER,
 	FOREIGN KEY("forekomst_ID") REFERENCES "Togruteforekomst"("forekomst_ID") ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY("kupe_nr","vogn_ID","vognoppsett_nr") REFERENCES "Sovekupe"("vogn_ID","vognoppsett_nr","kupe_nr") ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY("kunde_nr") REFERENCES "Kunde"("kunde_nr") ON UPDATE CASCADE ON DELETE CASCADE,
 	PRIMARY KEY("kupekunde_ID")
 );
 INSERT INTO "Delstrekning" VALUES (0,120,'true',0),
