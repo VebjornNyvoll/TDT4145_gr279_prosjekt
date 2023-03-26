@@ -6,7 +6,7 @@
 - Endringer ligger beskrevet i filen changes.md
 
 ## Filer
-- db2.py er hovedfilen for prosjektet som kjøres av bruker. Der ligger all funksjonalitet som behøves programmert.
+- I de ulike brukerhistorie-filene finner man all funksjonalitet som behøves programmert.
 - db_creator.sql er sql-scriptet som genererer databasen og fyller den med dataen som ikke skulle programmeres
 
 

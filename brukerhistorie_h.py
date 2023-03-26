@@ -4,8 +4,6 @@ con = sqlite3.connect('database_v0.db')
 c = con.cursor()
 
 
-# start, endestasjon, rute, dato, rute_ID
-
 def setKunde_nr():
     while(True):
         kundeID = input("Oppgi kundenummer, eller epost: \n")

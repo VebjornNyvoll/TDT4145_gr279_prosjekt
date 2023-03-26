@@ -19,5 +19,3 @@
 - Added autoincrement to kunde_nr
 
 - Added unique clause to kunde.epost and Stasjon.stasjon_navn (as well as collate nocase)
-# TODO:
-- Må lage et python script som lager en database via db_creator.sql
