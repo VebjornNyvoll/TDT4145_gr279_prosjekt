@@ -56,7 +56,7 @@ def getStasjonNavn(stasjon_ID):
         print(f"No stasjon with stasjon_ID = {stasjon_ID}")
 
 def brukerhistorie_g():
-    # Kunde_nr = setKunde_nr()
+    Kunde_nr = setKunde_nr()
     # print("Kunde_nr: ", Kunde_nr)
 
     # Load the sql file that is used in the third c.execute
@@ -104,7 +104,7 @@ def brukerhistorie_g():
     # ------husk input validering------
     togrute_ID = input("Oppgi rute id \n")
     
-    # finne alle seter som er i en togrute
+    # finne alle seter som er i en gitt togrute
     # bruke rute_ID til å finne vognopsett_nr med Togrute
     c.execute("SELECT vognopsett_nr FROM Togrute WHERE rute_ID = ?", (togrute_ID,))
     vognoppsett_nr = c.fetchone()
@@ -113,13 +113,31 @@ def brukerhistorie_g():
     vogn_ID = c.fetchall()
     # bruke vognopsett_nr + vogn_ID til å finne alle sete_nr med sete
     for i in range(len(vogn_ID)):
-        c.execute("SELECT sete_nr FROM Sete WHERE vogn_ID = ?", (vogn_ID[i][0],))
+        c.execute("SELECT sete_nr FROM Sete WHERE vogn_ID = ? AND vognoppsett_nr = ?", (vogn_ID[i][0], vognoppsett_nr[0],))
         sete_nr = c.fetchall()
-        print(sete_nr)
+        for j in range(len(sete_nr)):
+            print("Vogn:" + str(vogn_ID[i][0]) + "Sete:" + str(sete_nr[j][0]))
+        
+    # finne alle seter som er opptatt i hver forekomst
+    for i in range(len(togruteforekomster)):
+        c.execute("SELECT ordre_nr FROM Kundeordre WHERE forekomst_ID = ?", (togruteforekomster[i][0],))
+        ordre_nr = c.fetchone()
+        c.execute("SELECT sete_nr FROM Setebillett WHERE startstasjon = ? AND endestasjon = ? AND vognoppsett_nr = ? AND vogn_ID = ?", (StartStasjon, EndStasjon, vognoppsett_nr[0], vogn_ID[0][0]))
+        opptattSete = c.fetchall()
+        # remove opptatt sete from sete_nr
+        # for j in range(len(sete_nr)):
+        #     sete_nr.remove(opptattSete[j])
+        #     print("Forekomst: " + str(togruteforekomster[i][0]) + " " + str(togruteforekomster[i][1]))
 
-    #se om setene er ledige
-    #alle biletter mellom startstasjon og endestasjon med vognopsett_nr vogn_ID
-    c.execute()
+
+
+    # forekomst_ID = input("Oppgi forekomst id \n")
+    # vogn_ID = input("Oppgi vogn id \n")
+    # sete_nr = input("Oppgi sete nr \n")
+    
+    # execute_string = "INSERT INTO Kundeordre (ordre_nr, dag, tid, kunde_nr, forekomst_ID, ) VALUES (NULL, NULL, NULL " + str(Kunde_nr) + ", " + str(forekomst_ID) + ");"
+    # c.execute(execute_string)
+    
 
     
 brukerhistorie_g()
