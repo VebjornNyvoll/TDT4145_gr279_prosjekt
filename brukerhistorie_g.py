@@ -56,7 +56,7 @@ def getStasjonNavn(stasjon_ID):
         print(f"No stasjon with stasjon_ID = {stasjon_ID}")
 
 def brukerhistorie_g():
-    # Kunde_nr = setKunde_nr()
+    Kunde_nr = setKunde_nr()
     # print("Kunde_nr: ", Kunde_nr)
 
     # Load the sql file that is used in the third c.execute
@@ -122,9 +122,16 @@ def brukerhistorie_g():
     for i in range(len(togruteforekomster)):
         c.execute("SELECT ordre_nr FROM Kundeordre WHERE forekomst_ID = ?", (togruteforekomster[i][0],))
         ordre_nr = c.fetchone()
-
         c.execute("SELECT * FROM Setebillett WHERE startstasjon = ? AND endestasjon = ? AND vognoppsett_nr = ? AND vogn_ID = ?", (StartStasjon, EndStasjon, vognoppsett_nr[0], vogn_ID[0][0]))
         opptattSeteBillett = c.fetchall()
+
+    # forekomst_ID = input("Oppgi forekomst id \n")
+    # vogn_ID = input("Oppgi vogn id \n")
+    # sete_nr = input("Oppgi sete nr \n")
+    
+    # execute_string = "INSERT INTO Kundeordre (ordre_nr, dag, tid, kunde_nr, forekomst_ID, ) VALUES (NULL, NULL, NULL " + str(Kunde_nr) + ", " + str(forekomst_ID) + ");"
+    # c.execute(execute_string)
+    
 
     
 brukerhistorie_g()
